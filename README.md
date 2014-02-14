@@ -16,6 +16,7 @@ GosuFlappy is just a poor copy of FlappyBirds build with ruby 2.0 and Gosu Gem (
   ruby flappy.rb
 ```
 ### Resources
+http://www.spriters-resource.com/mobile_phone/flappybird/sheet/59537/
 https://github.com/jlnr/gosu/tree/master/examples
 http://gamedev.stackexchange.com/questions/29617/how-to-make-a-character-jump
 http://info.sonicretro.org/SPG:Jumping
