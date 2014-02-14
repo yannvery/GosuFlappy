@@ -114,9 +114,9 @@ class Player
 
   def collision?(other)
     @y + @player_image.height/2 > other.y &&
-    @y               < other.y + other.height &&
+    @y - @player_image.height/2 < other.y + other.height &&
     @x + @player_image.width/2  > other.x &&
-    @x               < other.x + other.width
+    @x - @player_image.width/2  < other.x + other.width
   end
 
 end
