@@ -64,14 +64,16 @@ class GameWindow < Gosu::Window
       end
       @walls.reject! {|wall| !wall.active }
     else
-      @start = true if self.button_down?(Gosu::KbSpace)
-      reset
+      if self.button_down?(Gosu::KbSpace)
+        @start = true
+        reset
+      end
     end
   end
 
   def draw
     @background_image.draw(0, 0, 0)
-    @message_image.draw(width/2 - @message_image.width/2, 50, 0) if !@start
+    @message_image.draw(width/2 - @message_image.width/2, 50, 10) if !@start
     # draw the score
     @font.draw("#{@score.to_i}", 10, 10, 20)
     @entities.each do |e|
