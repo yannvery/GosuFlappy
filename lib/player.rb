@@ -58,23 +58,8 @@ class Player
   # Update position, acceleration and gravity of the bird
   def update
     dead_if_touch_ground
-    if @dead
-      if @y < @window.ground_y - @player_image.height/2
-        @gravity += INCREASE_GRAVITY
-        @a += 25
-        @a = [@a,90].min
-        @y += @gravity * @window.delta
-      else
-        @y = @window.ground_y - @player_image.height/2
-      end
-    else
-      move
-      @y += @velocityY * @window.delta
-      @gravity += INCREASE_GRAVITY
-      @a += 0.5
-      @a = [@a,90].min
-      @y += @gravity * @window.delta
-    end
+    bird_fall if @dead
+    bird_fly if !@dead
   end
 
   # Move bird sprite when user hit space
@@ -111,15 +96,20 @@ class Player
     @x - @player_image.width/2  < other.x + other.width
   end
 
+  # Does the use hit space key
+  # @return [Boolean]
   def user_hit_space?
     return true if @window.button_down?(Gosu::KbSpace)
     return false if !@window.button_down?(Gosu::KbSpace)
   end
 
+  # Set @jump_start with Gosu seconds
   def jump_start
     @jump_start = Gosu::milliseconds / 1000.0
   end
 
+  # Stop jump if its duration > JUMP_TIME.
+  # Else update acceleration used during jump activation
   def update_jump_params
     @gravity = GRAVITY
     if ((Gosu::milliseconds / 1000.0) - @jump_start) > JUMP_TIME
@@ -130,6 +120,28 @@ class Player
       @a = -22 if ((Gosu::milliseconds / 1000.0) - @jump_start) > JUMP_TIME / 3
       @a = 0 if ((Gosu::milliseconds / 1000.0) - @jump_start) > (JUMP_TIME / 3)*2
     end
+  end
+
+  # Bird fall to the ground
+  def bird_fall
+  if @y < @window.ground_y - @player_image.height/2
+      @gravity += INCREASE_GRAVITY
+      @a += 25
+      @a = [@a,90].min
+      @y += @gravity * @window.delta
+    else
+      @y = @window.ground_y - @player_image.height/2
+    end
+  end
+
+  # Bird fly when all is done
+  def bird_fly
+    move
+    @y += @velocityY * @window.delta
+    @gravity += INCREASE_GRAVITY
+    @a += 0.5
+    @a = [@a,90].min
+    @y += @gravity * @window.delta
   end
 
 end
