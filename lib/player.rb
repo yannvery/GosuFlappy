@@ -79,25 +79,9 @@ class Player
 
   # Move bird sprite when user hit space
   def move
-    @space = true if @window.button_down?(Gosu::KbSpace)
-    @space = false if !@window.button_down?(Gosu::KbSpace)
-
-    if @space && !@space_before
-      @jump_start = Gosu::milliseconds / 1000.0
-    end
-
-    if @jump_start > 0
-      @gravity = GRAVITY
-      if ((Gosu::milliseconds / 1000.0) - @jump_start) > JUMP_TIME
-        @jump_start = 0
-      else
-        @velocityY = JUMP_POWER
-        @a = -45
-        @a = -22 if ((Gosu::milliseconds / 1000.0) - @jump_start) > JUMP_TIME / 3
-        @a = 0 if ((Gosu::milliseconds / 1000.0) - @jump_start) > (JUMP_TIME / 3)*2
-      end
-    end
-
+    @space = user_hit_space?
+    jump_start if @space && !@space_before
+    update_jump_params if @jump_start > 0
     @space_before = @space
   end
 
@@ -125,6 +109,27 @@ class Player
     @y - @player_image.height/2 < other.y + other.height &&
     @x + @player_image.width/2  > other.x &&
     @x - @player_image.width/2  < other.x + other.width
+  end
+
+  def user_hit_space?
+    return true if @window.button_down?(Gosu::KbSpace)
+    return false if !@window.button_down?(Gosu::KbSpace)
+  end
+
+  def jump_start
+    @jump_start = Gosu::milliseconds / 1000.0
+  end
+
+  def update_jump_params
+    @gravity = GRAVITY
+    if ((Gosu::milliseconds / 1000.0) - @jump_start) > JUMP_TIME
+      @jump_start = 0
+    else
+      @velocityY = JUMP_POWER
+      @a = -45
+      @a = -22 if ((Gosu::milliseconds / 1000.0) - @jump_start) > JUMP_TIME / 3
+      @a = 0 if ((Gosu::milliseconds / 1000.0) - @jump_start) > (JUMP_TIME / 3)*2
+    end
   end
 
 end
