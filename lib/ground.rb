@@ -26,9 +26,7 @@ class Ground
 
   def update
     @x -= 2
-    if self.hide?
-      self.reset
-    end
+    self.reset if self.hide?
   end
 
   def hide?
