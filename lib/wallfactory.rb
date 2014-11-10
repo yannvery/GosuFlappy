@@ -30,4 +30,3 @@ class WallFactory
   end
 
 end
-
