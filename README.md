@@ -6,11 +6,9 @@ GosuFlappy is just a poor copy of FlappyBirds build with ruby 2.0 and Gosu Gem (
 ##Installation
 
   - Clone the repository.
-  - Install ruby 2.0
-  - Install Gosu Gem
-```sh
-  gem install gosu
-```
+  - Prepare installation of Gosu Gem ( for OSX ) with `brew install sdl2 libogg libvorbis`
+  - Make `bundle`
+
 ###Launch it
 ```sh
   ruby flappy.rb
