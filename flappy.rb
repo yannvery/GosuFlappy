@@ -8,6 +8,7 @@ class GameWindow < Gosu::Window
 
   attr_accessor :entities, :walls, :delta
 
+  # Initialize the game
   def initialize
     super(288, 512, false)
     self.caption = "GosuFlappy Game"
@@ -27,6 +28,7 @@ class GameWindow < Gosu::Window
     ]
   end
 
+  # Reset all elements
   def reset
     @delta = 0
     @last_time = 0
@@ -41,12 +43,14 @@ class GameWindow < Gosu::Window
     ]
   end
 
+  # Update delta param
   def update_delta
     current_time = Gosu::milliseconds / 1000.0
     @delta = [current_time - @last_time, 0.25].min
     @last_time = current_time
   end
 
+  # Update game for each loop occurence - standard gosu method
   def update
     if @start
       update_delta
@@ -71,6 +75,7 @@ class GameWindow < Gosu::Window
     end
   end
 
+  # Draw entities of games - standard gosu method
   def draw
     @background_image.draw(0, 0, 0)
     @message_image.draw(width/2 - @message_image.width/2, 50, 10) if !@start
@@ -81,14 +86,20 @@ class GameWindow < Gosu::Window
     end
   end
 
+  # Compute height of sky
+  # @return [integer] the height of sky
   def sky_height
     @background_image.height - self.ground_height
   end
 
+  # Return the height of ground
+  # @return [integer]
   def ground_height
     @ground.height
   end
 
+  # Return ground y position
+  # @return [integer]
   def ground_y
     @ground.y
   end
