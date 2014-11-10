@@ -14,8 +14,6 @@ class Player
       image = images[0]
     elsif ["1","4","7"].include? sec
       image = images[1]
-    elsif ["2","5","8"].include? sec
-      image = images[2]
     else
       image = images[2]
     end
