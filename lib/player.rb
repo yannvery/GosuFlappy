@@ -42,17 +42,20 @@ class Player
     reset
   end
 
+  # Reset position of the bird
   def reset
     @x = @window.width / 4
     @y = @window.height / 2
     @a = 0
   end
 
+  # Draw player image
   def draw
     @player_image = self.class.load_image(@window)
     @player_image.draw_rot(@x, @y, 1, @a)
   end
 
+  # Update position, acceleration and gravity of the bird
   def update
     dead_if_touch_ground
     if @dead
@@ -74,8 +77,8 @@ class Player
     end
   end
 
+  # Move bird sprite when user hit space
   def move
-
     @space = true if @window.button_down?(Gosu::KbSpace)
     @space = false if !@window.button_down?(Gosu::KbSpace)
 
@@ -98,20 +101,25 @@ class Player
     @space_before = @space
   end
 
+  # Is bird is dead ?
+  # @return [Boolean]
   def killed?
     (@y == @window.ground_y - @player_image.height/2) ? true : false
   end
 
+  # The bird is dead if he touch the ground
   def dead_if_touch_ground
     if @y >= @window.ground_y - @player_image.height/2
       @dead = true
     end
   end
 
+  # Is the bird hit a wall ?
   def through_wall?(other)
     @x > other.x + (other.width/2)
   end
 
+  # Does the bird touch anything
   def collision?(other)
     @y + @player_image.height/2 > other.y &&
     @y - @player_image.height/2 < other.y + other.height &&
