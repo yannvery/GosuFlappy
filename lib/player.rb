@@ -76,9 +76,7 @@ class Player
 
   # The bird is dead if he touch the ground
   def dead_if_touch_ground
-    if @y >= @window.ground_y - @player_image.height/2
-      @dead = true
-    end
+    @dead = true if @y >= @window.ground_y - @player_image.height/2
   end
 
   # Is the bird hit a wall ?
