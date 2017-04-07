@@ -11,12 +11,12 @@ class GameWindow < Gosu::Window
   # Initialize the game
   def initialize
     super(288, 512, false)
-    self.caption = "GosuFlappy Game"
+    caption = 'GosuFlappy Game'
     @start = false
     @delta = 0
     @last_time = 0
-    @background_image = Gosu::Image.new(self, "media/background.png", true)
-    @message_image = Gosu::Image.new(self, "media/message.png", true)
+    @background_image = Gosu::Image.new('media/background.png')
+    @message_image = Gosu::Image.new('media/message.png')
     @ground = Ground.new(self)
     @player = Player.new(self)
     @wallfactory = WallFactory.new(self)
@@ -68,7 +68,7 @@ class GameWindow < Gosu::Window
       end
       @walls.reject! {|wall| !wall.active }
     else
-      if self.button_down?(Gosu::KbSpace)
+      if button_down?(Gosu::KbSpace)
         @start = true
         reset
       end

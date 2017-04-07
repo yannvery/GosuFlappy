@@ -24,7 +24,7 @@ class WallFactory
   # Add a wall for each intervall
   def update
     if @counter >= @intervall
-      self.add
+      add
       @counter = 0
     else
       @counter += 1
