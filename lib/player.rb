@@ -6,22 +6,22 @@ class Player
   INCREASE_GRAVITY = 10
   attr_accessor :x, :y, :dead
 
-  def self.load_image(window)
-    image = ""
+  def load_image(window)
+    image = ''
     images = ['media/flappy-1.png', 'media/flappy-2.png', 'media/flappy-3.png']
     sec = (Gosu::milliseconds / 1000).to_s.split(//).last
-    if ["0","3","6","9"].include? sec
+    if ['0', '3' , '6', '9'].include? sec
       image = images[0]
-    elsif ["1","4","7"].include? sec
+    elsif ['1', '4', '7'].include? sec
       image = images[1]
     else
       image = images[2]
     end
-    @player_image = Gosu::Image.new(window, image, true)
+    @player_image = Gosu::Image.new(image)
   end
 
   def initialize(window)
-    @player_image = self.class.load_image(window)
+    @player_image = load_image(window)
     @window = window
 
     @velocityY = 0
@@ -49,7 +49,7 @@ class Player
 
   # Draw player image
   def draw
-    @player_image = self.class.load_image(@window)
+    @player_image = load_image(@window)
     @player_image.draw_rot(@x, @y, 1, @a)
   end
 
@@ -114,7 +114,7 @@ class Player
       @velocityY = JUMP_POWER
       @a = -45
       @a = -22 if ((Gosu::milliseconds / 1000.0) - @jump_start) > JUMP_TIME / 3
-      @a = 0 if ((Gosu::milliseconds / 1000.0) - @jump_start) > (JUMP_TIME / 3)*2
+      @a = 0 if ((Gosu::milliseconds / 1000.0) - @jump_start) > (JUMP_TIME*2 / 3)
     end
   end
 
@@ -133,7 +133,8 @@ class Player
   # Bird fly when all is done
   def bird_fly
     move
-    @y += @velocityY * @window.delta
+    margin = 20
+    @y += @velocityY * @window.delta if @y > @velocityY * @window.delta + margin
     @gravity += INCREASE_GRAVITY
     @a += 0.5
     @a = [@a,90].min

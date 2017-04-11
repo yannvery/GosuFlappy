@@ -2,12 +2,12 @@ class Ground
 
   attr_accessor :x, :y
 
-  def self.load_image(window)
-    @ground_image ||= Gosu::Image.new(window, 'media/ground.png', true)
+  def load_image(window)
+    @ground_image ||= Gosu::Image.new('media/ground.png')
   end
 
   def initialize(window)
-    @ground_image = self.class.load_image(window)
+    @ground_image = load_image(window)
 
     @window = window
     @x = 0
@@ -26,7 +26,7 @@ class Ground
 
   def update
     @x -= 2
-    self.reset if self.hide?
+    reset if hide?
   end
 
   def hide?
